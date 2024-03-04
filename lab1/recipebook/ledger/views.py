@@ -1,41 +1,28 @@
 from django.shortcuts import render
+from django.http import HttpResponse
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 
-def recipe_list(request, recipe_number=None):
-    recipes = [
-        {
-            "name": "Recipe 1",
-            "ingredients": [
-                {"name": "tomato", "quantity": "3 pcs"},
-                {"name": "onion", "quantity": "1 pc"},
-                {"name": "pork", "quantity": "1 kg"},
-                {"name": "water", "quantity": "1 L"},
-                {"name": "sinigang mix", "quantity": "1 packet"}
-            ],
-            "link": "/recipe/1"
-        },
-        {
-            "name": "Recipe 2",
-            "ingredients": [
-                {"name": "garlic", "quantity": "1 head"},
-                {"name": "onion", "quantity": "1 pc"},
-                {"name": "vinegar", "quantity": "1/2 cup"},
-                {"name": "water", "quantity": "1 cup"},
-                {"name": "salt", "quantity": "1 tablespoon"},
-                {"name": "whole black peppers", "quantity": "1 tablespoon"},
-                {"name": "pork", "quantity": "1 kilo"}
-            ],
-            "link": "/recipe/2"
-        }
-    ]
+from .models import Recipe
 
-    context = {}
+def recipe_list(request):
+    recipes = Recipe.objects.all()
+    ctx = {"recipes": recipes}
 
-    if recipe_number is not None:
-        for recipe in recipes:
-            if int(recipe_number) == int(recipe['link'].split('/')[-1]):
-                context['selected_recipe'] = recipe
-                break
+    return render(request, 'recipe_list.html', ctx)
 
-    context['recipes'] = recipes
+def recipe_detail(request, pk):
+    recipe = Recipe.objects.get(pk=pk)
+    ctx = {'recipe': recipe}
 
-    return render(request, 'recipe_list.html', context)
+    return render(request, 'recipe_detail.html', ctx)
+
+
+class RecipeListView(ListView):
+    model = Recipe
+    template_name = 'recipe_list.html'
+
+
+class RecipeDetailView(DetailView):
+    model = Recipe
+    template_name = 'recipe_detail.html'
