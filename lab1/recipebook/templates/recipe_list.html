@@ -1,20 +1,15 @@
 <!-- recipe_list.html -->
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Recipes</title>
-    
-</head>
-<body>
-    <h1>Recipes</h1>
+{% extends 'base.html' %}
+
+{% block title %}
+    Recipes
+{% endblock %}
+
+{% block content %}
     <ul>
         {% for recipe in object_list %}
             <li><a href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></li>
         {% endfor %}
     </ul>
-</body>
-</html>
+{% endblock %}

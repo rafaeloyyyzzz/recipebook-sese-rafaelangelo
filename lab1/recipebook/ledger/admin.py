@@ -1,18 +1,17 @@
 from django.contrib import admin
-
-from .models import Recipe, RecipeIngredient
-
+from .models import Recipe, RecipeIngredient, Ingredient
 
 class RecipeIngredientInLine(admin.TabularInline):
     model = RecipeIngredient
 
-
 class RecipeAdmin(admin.ModelAdmin):
     inlines = [RecipeIngredientInLine,]
+    list_display = ('name', 'author', 'created_on', 'updated_on')
 
 
 class RecipeIngredientAdmin(admin.ModelAdmin):
-      ist_display = ('quantity', 'ingredient', 'recipe')
+    list_display = ('quantity', 'ingredient', 'recipe')
 
 admin.site.register(RecipeIngredient, RecipeIngredientAdmin)
+admin.site.register(Ingredient)
 admin.site.register(Recipe, RecipeAdmin)

@@ -1,21 +1,20 @@
 <!-- recipe_detail.html -->
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>{{ object.name }}</title>
+{% extends 'base.html' %}
 
-</head>
-<body>
-    <h1>{{ object.name }}</h1>
-    <h2>Ingredients:</h2>
+{% block title %}
+    {{ object.name }}
+{% endblock %}
+
+{% block content %}
+    <h2>{{ object.name }}</h2>
+    {% if request.user.is_authenticated %}
+        <p>Author: {{ object.author }}</p>
+    {% endif %}
+    <h3>Ingredients:</h3>
     <ul>
         {% for ingredient in object.ingredients.all %}
-        <li>{{ ingredient.quantity }} of {{ ingredient.ingredient.name }}</li>
+            <li>{{ ingredient.quantity }} of {{ ingredient.ingredient.name }}</li>
         {% endfor %}
     </ul>
-</body>
-</html>
+{% endblock %}
