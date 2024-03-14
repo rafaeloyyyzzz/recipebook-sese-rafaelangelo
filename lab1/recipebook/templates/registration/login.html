@@ -1,9 +1,21 @@
-<h1>Recipe Book</h1>
-<h1>Login</h1>
-<a href="{% url 'password_reset' %}">Forgot password</a>
+<!-- registration/login.html -->
+{% extends 'base.html' %}
 
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
-</form>
+{% block title %}
+    Login - Recipe Book
+{% endblock %}
+
+{% block page_title %}
+    Login
+{% endblock %}
+
+{% block content %}
+    <h1>Login</h1>
+    <a href="{% url 'password_reset' %}">Forgot password</a>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Login</button>
+    </form>
+{% endblock %}

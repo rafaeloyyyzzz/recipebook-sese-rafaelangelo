@@ -1,10 +1,9 @@
-<!-- base.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recipe Book</title>
+    <title>{% block title %}Recipe Book{% endblock %}</title>
 </head>
 <body>
     <header>
@@ -18,8 +17,9 @@
             <a href="{% url 'login' %}">Login</a>
         {% endif %}
     </header>
-
-    {% block content %}
-    {% endblock %}
+    <main>
+        <h2>{% block heading %}{% endblock %}</h2>
+        {% block content %}{% endblock %}
+    </main>
 </body>
 </html>
